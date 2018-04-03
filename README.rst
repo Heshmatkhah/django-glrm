@@ -4,7 +4,7 @@ Global Login Required Middleware
 
 This module is a Django middleware that make all views and URLs login required.
 
-Detailed documentation is in the "docs" directory.
+`Detailed documentation <http://djnago-glrm.readthedocs.io/>`_ is in the "docs" directory.
 
 -----------
 
