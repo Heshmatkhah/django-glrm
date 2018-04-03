@@ -1,6 +1,6 @@
-================================
-Global Login Required Middleware
-================================
+=============================================
+Global Login Required Middleware |Doc_Badge|
+=============================================
 
 This module is a Django middleware that make all views and URLs login required.
 
@@ -25,3 +25,5 @@ Quick start
 
 2. Start the development server and visit http://127.0.0.1:8000/, 
 now all your pages are login required and you will see the login page.
+
+.. |Doc_Badge| image:: https://readthedocs.org/projects/djnago-glrm/badge/?version=latest
