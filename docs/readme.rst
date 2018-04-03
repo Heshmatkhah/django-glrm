@@ -53,6 +53,14 @@ there is 3 ways to exclude a route from being login required:
         ....
         ]
 
+.. danger::
+    The ``login_not_required`` decorator actually do nothing and only wrap the view in an object and we check for object type, So:
+
+    - If you combine this decorator with a ``login_required`` decorator, your view will be login required.
+    - Make shure that this decorator is the last one that applies on a view.
+
+    This will fix in next versions.
+
 .. _Decorating in URLconf: https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-in-urlconf
 
 
@@ -116,7 +124,7 @@ it will ignore checking for authentication.
 Code Documentation
 __________________
 
-.. automodule:: .global_login_required
+.. automodule:: global_login_required
     :members:
     :undoc-members:
     :show-inheritance:

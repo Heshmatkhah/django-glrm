@@ -101,7 +101,13 @@ class login_not_required(object):
 	Decorator which marks the given view as public (no login required).
 
 	This class actually do nothing, but it wrap view in an object and we can use
-	`isinstance` to detect that function is not a login required one.
+	``isinstance`` to detect that function is not a login required one.		
+
+	So if you combine this with a ``login_required`` decorator, your view will be login required.
+	Also make shure that this decorator is the last one that apply on a view.
+	
+	This will fix in next versions.
+
 	"""
 
 	def __init__(self, original_function):
