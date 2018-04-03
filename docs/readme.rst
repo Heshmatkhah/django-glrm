@@ -15,6 +15,13 @@ This module is a Django middleware that make all views and URLs login required.
 Documentation
 -------------
 
+Installation
+____________
+you can install Django Global Login Required Middleware using ``pip``::
+
+    $ pip install djnago-global-login-required-middleware
+
+
 Usage
 _____
 To install this app, you should add ``'global_login_required.LoginRequiredMiddleware'`` to ``settings.MIDDLEWARE``
