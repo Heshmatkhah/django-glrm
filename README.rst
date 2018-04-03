@@ -1,5 +1,5 @@
 =============================================
-Global Login Required Middleware |Doc_Badge|
+Global Login Required Middleware |Doc_Badge|_
 =============================================
 
 This module is a Django middleware that make all views and URLs login required.
@@ -27,3 +27,4 @@ Quick start
 now all your pages are login required and you will see the login page.
 
 .. |Doc_Badge| image:: https://readthedocs.org/projects/djnago-glrm/badge/?version=latest
+.. _Doc_Badge: http://djnago-glrm.readthedocs.io/
