@@ -1,6 +1,6 @@
-================================
-Global Login Required Middleware
-================================
+=======================================
+Django Global Login Required Middleware
+=======================================
 
 This module is a Django middleware that make all views and URLs login required.
 
@@ -19,7 +19,7 @@ Installation
 ____________
 you can install Django Global Login Required Middleware using ``pip``::
 
-    $ pip install djnago-global-login-required-middleware
+    $ pip install django-glrm
 
 
 Usage
@@ -36,40 +36,65 @@ To install this app, you should add ``'global_login_required.LoginRequiredMiddle
         ...
 
         'global_login_required.LoginRequiredMiddleware',
+
+        ...
     ]
 
 then all routes in your sile will be login required.
 
-there is 3 ways to exclude a route from being login required:
+there is 4 ways to exclude a url or view from being login required:
 
-- Add a ``@login_not_required`` decorator for view function
+- Add a ``@login_not_required`` decorator for view (**function based** or **class based**)
 - List the public view (not login required views) in settings.py at ``PUBLIC_VIEWS``
 - List the public route's regex is settings.py at ``PUBLIC_PATHS``
+- Add ``LOGIN_NOT_REQUIRED`` property to view class
 
 .. danger::
-    The ``login_not_required`` decorator currently is only for **function based view**.
-    for using it with **class based views** should be by `Decorating in URLconf`_:
+    if you want to use ``login_not_required`` decorator for a **class based view**, it should be in one of this formats:
 
-    .. code-block:: python
-        
-        from global_login_required import login_not_required
-        
-        urlpatterns = [
-        ....
-            path(r'^cbv_decorator/', login_not_required(test_ClassBasedView_decorator.as_view())),
-        ....
-        ]
+    1. `Decorating in URLconf`_:
 
-.. danger::
-    The ``login_not_required`` decorator actually do nothing and only wrap the view in an object and we check for object type, So:
+        .. code-block:: python
 
-    - If you combine this decorator with a ``login_required`` decorator, your view will be login required.
-    - Make shure that this decorator is the last one that applies on a view.
+            from global_login_required import login_not_required
 
-    This will fix in next versions.
+            urlpatterns = [
+            ...
+                path(r'^cbv_decorator/', login_not_required(test_ClassBasedView_decorator.as_view())),
+            ...
+            ]
+
+    2. `Decorating the class`_:
+
+        .. code-block:: python
+
+            from global_login_required import login_not_required
+            from django.utils.decorators import method_decorator
+            from django.views.generic import ListView
+
+            @method_decorator(login_not_required, name='dispatch')
+            class test_ClassBasedView_method_decorator(ListView):
+                ...
+
+    3. use as a normal decorator for class
+
+        .. code-block:: python
+
+            from global_login_required import login_not_required
+            from django.views.generic import ListView
+
+            @login_not_required
+            class test_ClassBasedView_decorator(ListView):
+                ...
+    
+
+
 
 .. _Decorating in URLconf: https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-in-urlconf
+.. _Decorating the class: https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-the-class
 
+.. danger::
+    If you combine ``login_not_required`` decorator with a ``login_required`` decorator, your view will be login required.
 
 Settings
 ________
@@ -128,10 +153,3 @@ it will ignore checking for authentication.
     If you manually add a ``login_required`` decorator to view, and then list that view in settings,
     the final final result will be **login required**.
 
-Code Documentation
-__________________
-
-.. automodule:: global_login_required
-    :members:
-    :undoc-members:
-    :show-inheritance:

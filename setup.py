@@ -8,20 +8,26 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='djnago-global-login-required-middleware',
-    version='0.2',
+    name='django-glrm',
+    version='1.1.0rc1',
     packages=find_packages(),
     include_package_data=True,
     license='Apache Software License', 
     description='A Django middleware that make all views and URLs login required.',
     long_description=README,
-    url='https://www.example.com/',
+    project_urls={
+        'Documentation': 'http://django-glrm.readthedocs.io/',
+        'Source': 'https://github.com/MA-Heshmatkhah/django-global-login-required-middleware/',
+        'Tracker': 'https://github.com/MA-Heshmatkhah/django-global-login-required-middleware/issues',
+    },
     author='M.A. Heshmatkhah',
     author_email='maheshmatkhah.prg@gmail.com',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
+        'Framework :: Django :: 1.10',  
         'Framework :: Django :: 1.11',  
+        'Framework :: Django :: 2.0',  
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',  
         'Operating System :: OS Independent',

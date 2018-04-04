@@ -75,6 +75,22 @@ class GlobalLoginRequiredMiddleware(MiddlewareMixin):
 					return True
 		return False
 
+	def check_decorator(self, view):
+		"""
+		Checks is the view function decorated or not
+
+		:param view: view function
+		:rtype: bool
+		"""
+		if hasattr(view, 'view_class'):
+			if hasattr(view.view_class, 'LOGIN_NOT_REQUIRED'):
+				return view.view_class.LOGIN_NOT_REQUIRED
+
+		if hasattr(view, 'LOGIN_NOT_REQUIRED'):
+			return view.LOGIN_NOT_REQUIRED
+
+		return False
+
 	def process_view(self, request, view_func, view_args, view_kwargs):
 		"""
 		checks if this view is not in excluded views (by `PUBLIC_VIEWS`, `PUBLIC_PATHS` or `login_not_required` decorator),
@@ -89,40 +105,33 @@ class GlobalLoginRequiredMiddleware(MiddlewareMixin):
 		:param view_kwargs: the keyword arguments that will be passed to view
 		:return: `None` in order to  continue processing **process_view** in middleware chain or ` HttpResponse` for braking middleware chain.
 		"""
-		if request.user.is_authenticated() or isinstance(view_func, login_not_required) or self.matches_public_path(request.path) or self.matches_public_view(view_func):
+		if request.user.is_authenticated() or self.matches_public_path(request.path) or self.matches_public_view(view_func) or self.check_decorator(view_func):
 			return None
 		else:
 			return login_required(view_func)(request, *view_args, **view_kwargs)
 
 
-# todo: make this compatible with Class Based Views
-class login_not_required(object):
+def login_not_required(the_view):
 	"""
-	Decorator which marks the given view as public (no login required).
+	Decorator which marks the given view as public (not login required).
 
-	This class actually do nothing, but it wrap view in an object and we can use
-	``isinstance`` to detect that function is not a login required one.		
+	This decorator adds a read only property ``	LOGIN_NOT_REQUIRED`` to the view,
+	and if it's value be ``True``, the middleware will not force for login.
 
-	So if you combine this with a ``login_required`` decorator, your view will be login required.
-	Also make shure that this decorator is the last one that apply on a view.
-	
-	This will fix in next versions.
+	If you combine this with a ``login_required`` decorator, your view will be login required.
 
 	"""
 
-	def __init__(self, original_function):
+	def getter(self):
 		"""
-		Set the function in the class
-		:param callable original_function: the function
-		"""
-		self.original_function = original_function
+		returns actual value of property
 
-	def __call__(self, *args, **kwargs):
+		:param self:
+		:return:
+		:rtype bool
 		"""
-		calls the function
+		return getattr(self, '_LOGIN_NOT_REQUIRED', True)
 
-		:param args:
-		:param kwargs:
-		:return: function's output
-		"""
-		return self.original_function(*args, **kwargs)
+	setattr(the_view, 'LOGIN_NOT_REQUIRED', property(getter))
+
+	return the_view
