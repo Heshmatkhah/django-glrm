@@ -27,6 +27,7 @@ _____
 To install this app, you should add ``'global_login_required.LoginRequiredMiddleware'`` to ``settings.MIDDLEWARE``
 
 .. code-block::python
+
     MIDDLEWARE = [
         # default contents
         'django.middleware.security.SecurityMiddleware',
