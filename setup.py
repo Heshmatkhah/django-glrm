@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-glrm',
-    version='1.1.0',
+    version='1.1.2',
     packages=find_packages(),
     include_package_data=True,
     license='Apache Software License', 
@@ -17,8 +17,8 @@ setup(
     long_description=README,
     project_urls={
         'Documentation': 'http://django-glrm.readthedocs.io/',
-        'Source': 'https://github.com/MA-Heshmatkhah/django-global-login-required-middleware/',
-        'Tracker': 'https://github.com/MA-Heshmatkhah/django-global-login-required-middleware/issues',
+        'Source': 'https://github.com/MA-Heshmatkhah/django-glrm/',
+        'Tracker': 'https://github.com/MA-Heshmatkhah/django-glrm/issues',
     },
     author='M.A. Heshmatkhah',
     author_email='maheshmatkhah.prg@gmail.com',

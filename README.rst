@@ -9,12 +9,7 @@ It can be quite tedious to decorate all of the views with ``@login_required``, a
 
 So, you can use **Django Global Login Required Middleware** to make all page login required excep some of them.
 
------------
-
-.. contents::
-
------------
-
+Documentation_ is avalible at `Read The Docs <http://django-glrm.readthedocs.io/>`_.
 
 Quick start
 -----------
@@ -35,3 +30,4 @@ now all your pages are login required and you will see the login page.
 
 .. |Doc_Badge| image:: https://readthedocs.org/projects/django-glrm/badge/?version=latest
 .. _Doc_Badge: http://django-glrm.readthedocs.io/
+.. _Documentation: http://django-glrm.readthedocs.io/
