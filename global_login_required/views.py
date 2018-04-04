@@ -33,3 +33,17 @@ class test_ClassBasedView_method_decorator(View):
 class test_ClassBasedView_decorator(View):
 	def get(self, request, *args, **kwargs):
 		return HttpResponse("Response from view.")
+
+
+class test_ClassBasedView_property(View):
+	LOGIN_NOT_REQUIRED = False
+
+	def get(self, request, *args, **kwargs):
+		return HttpResponse("Response from view.")
+
+
+class test_ClassBasedView_property_public(View):
+	LOGIN_NOT_REQUIRED = True
+
+	def get(self, request, *args, **kwargs):
+		return HttpResponse("Response from view.")

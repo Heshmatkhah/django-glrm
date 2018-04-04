@@ -225,3 +225,41 @@ class LoginRequired_Test(TestCase):
 		# test fbv, parameter in url
 		response = self.client.get('/fbv_with_param/12/abc/')
 		self.assertEqual(response.status_code, 200)
+
+	def test_property_class_based_view(self):
+		# Not logged in
+
+		# test cbv, no parameter in url
+		response = self.client.get('/cbv_property/')
+		self.assertRedirects(response, settings.LOGIN_URL + '?next=/cbv_property/')
+
+		# test cbv, parameter in url
+		response = self.client.get('/cbv_with_param_property/12/abc/')
+		self.assertRedirects(response, settings.LOGIN_URL + '?next=/cbv_with_param_property/12/abc/')
+
+		# test cbv, no parameter in url
+		response = self.client.get('/cbv_property_public/')
+		self.assertEqual(response.status_code, 200)
+
+		# test cbv, parameter in url
+		response = self.client.get('/cbv_with_param_property_public/12/abc/')
+		self.assertEqual(response.status_code, 200)
+
+		# Login
+		self.client.force_login(self.testuser)
+
+		# test cbv, no parameter in url
+		response = self.client.get('/cbv_property/')
+		self.assertEqual(response.status_code, 200)
+
+		# test cbv, parameter in url
+		response = self.client.get('/cbv_with_param_property/12/abc/')
+		self.assertEqual(response.status_code, 200)
+
+		# test cbv, no parameter in url
+		response = self.client.get('/cbv_property_public/')
+		self.assertEqual(response.status_code, 200)
+
+		# test cbv, parameter in url
+		response = self.client.get('/cbv_with_param_property_public/12/abc/')
+		self.assertEqual(response.status_code, 200)

@@ -45,49 +45,48 @@ then all routes in your sile will be login required.
 there is 4 ways to exclude a url or view from being login required:
 
 - Add a ``@login_not_required`` decorator for view (**function based** or **class based**)
-- List the public view (not login required views) in settings.py at ``PUBLIC_VIEWS``
-- List the public route's regex is settings.py at ``PUBLIC_PATHS``
+- List the public view (not login required views) in settings.py at PUBLIC_VIEWS_
+- List the public url's regex is settings.py at PUBLIC_PATHS_
 - Add ``LOGIN_NOT_REQUIRED`` property to view class
 
-.. danger::
-    if you want to use ``login_not_required`` decorator for a **class based view**, it should be in one of this formats:
+Decorator
+_________
+if you want to use ``login_not_required`` decorator for a **class based view**, it should be in one of this formats:
 
-    1. `Decorating in URLconf`_:
+1. Use as a normal decorator for class
 
-        .. code-block:: python
+.. code-block:: python
 
-            from global_login_required import login_not_required
+    from global_login_required import login_not_required
+    from django.views.generic import ListView
 
-            urlpatterns = [
-            ...
-                path(r'^cbv_decorator/', login_not_required(test_ClassBasedView_decorator.as_view())),
-            ...
-            ]
+    @login_not_required
+    class test_ClassBasedView_decorator(ListView):
+        ...
 
-    2. `Decorating the class`_:
+2. `Decorating in URLconf`_:
 
-        .. code-block:: python
+.. code-block:: python
 
-            from global_login_required import login_not_required
-            from django.utils.decorators import method_decorator
-            from django.views.generic import ListView
+    from global_login_required import login_not_required
 
-            @method_decorator(login_not_required, name='dispatch')
-            class test_ClassBasedView_method_decorator(ListView):
-                ...
+    urlpatterns = [
+    ...
+        path(r'^cbv_decorator/', login_not_required(test_ClassBasedView_decorator.as_view())),
+    ...
+    ]
 
-    3. use as a normal decorator for class
+3. `Decorating the class`_:
 
-        .. code-block:: python
+.. code-block:: python
 
-            from global_login_required import login_not_required
-            from django.views.generic import ListView
+    from global_login_required import login_not_required
+    from django.utils.decorators import method_decorator
+    from django.views.generic import ListView
 
-            @login_not_required
-            class test_ClassBasedView_decorator(ListView):
-                ...
-    
-
+    @method_decorator(login_not_required, name='dispatch')
+    class test_ClassBasedView_method_decorator(ListView):
+        ...
 
 
 .. _Decorating in URLconf: https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-in-urlconf
@@ -95,6 +94,34 @@ there is 4 ways to exclude a url or view from being login required:
 
 .. danger::
     If you combine ``login_not_required`` decorator with a ``login_required`` decorator, your view will be login required.
+
+Class Property
+______________
+also you can a ``LOGIN_NOT_REQUIRED`` to your class based views and your class will be publicly available:
+
+.. code-block:: python
+
+    from django.views.generic import ListView
+
+    class test_ClassBasedView_property_public(ListView):
+        LOGIN_NOT_REQUIRED = True # Makes the view publicly available
+
+        def get(self, request, *args, **kwargs):
+            return HttpResponse("Response from view.")
+
+
+If you set ``LOGIN_NOT_REQUIRED`` to ``False`` your view still login required:
+
+.. code-block:: python
+
+    from django.views.generic import ListView
+
+    class test_ClassBasedView_property(ListView):
+        LOGIN_NOT_REQUIRED = False # The view still login required
+
+        def get(self, request, *args, **kwargs):
+            return HttpResponse("Response from view.")
+
 
 Settings
 ________

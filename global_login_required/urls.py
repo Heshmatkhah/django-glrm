@@ -16,4 +16,8 @@ urlpatterns = [
 	url(r'^cbv_url_decorator/', login_not_required(test_ClassBasedView_url_decorator.as_view())),
 	url(r'^fbv_with_param_decorator/(?P<p1>.*)/(?P<p2>.*)/', test_FunctionBasedView_decorator),
 	url(r'^fbv_decorator/', test_FunctionBasedView_decorator),
+	url(r'^cbv_with_param_property/(?P<p1>.*)/(?P<p2>.*)/', test_ClassBasedView_property.as_view()),
+	url(r'^cbv_property/', test_ClassBasedView_property.as_view()),
+	url(r'^cbv_with_param_property_public/(?P<p1>.*)/(?P<p2>.*)/', test_ClassBasedView_property_public.as_view()),
+	url(r'^cbv_property_public/', test_ClassBasedView_property_public.as_view()),
 ]
