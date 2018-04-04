@@ -1,4 +1,4 @@
 include LICENSE
 include README.rst
 recursive-include global_login_required *
-recursive-include docs *.rst
+recursive-include docs *.rst conf.py MAKEFILE
