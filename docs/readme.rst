@@ -26,7 +26,7 @@ Usage
 _____
 To install this app, you should add ``'global_login_required.LoginRequiredMiddleware'`` to ``settings.MIDDLEWARE``
 
-.. code-block::python
+.. code-block:: python
 
     MIDDLEWARE = [
         # default contents
