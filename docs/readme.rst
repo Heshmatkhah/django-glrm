@@ -36,7 +36,7 @@ To install this app, you should add ``'global_login_required.LoginRequiredMiddle
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         ...
 
-        'global_login_required.LoginRequiredMiddleware',
+        'global_login_required.GlobalLoginRequiredMiddleware',
 
         ...
     ]
