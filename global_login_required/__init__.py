@@ -105,7 +105,7 @@ class GlobalLoginRequiredMiddleware(MiddlewareMixin):
 		:param view_kwargs: the keyword arguments that will be passed to view
 		:return: `None` in order to  continue processing **process_view** in middleware chain or ` HttpResponse` for braking middleware chain.
 		"""
-		if request.user.is_authenticated() or self.matches_public_path(request.path) or self.matches_public_view(view_func) or self.check_decorator(view_func):
+		if request.user.is_authenticated or self.matches_public_path(request.path) or self.matches_public_view(view_func) or self.check_decorator(view_func):
 			return None
 		else:
 			return login_required(view_func)(request, *view_args, **view_kwargs)
