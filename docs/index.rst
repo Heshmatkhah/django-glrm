@@ -11,7 +11,13 @@ Django Global Login Required Middleware (django-glrm) is a Django middleware tha
 It's common in Django that most of the site's pages are protected, with just a few exceptions of pages that remain public (e.g. login page, etc.).
 It can be quite tedious to decorate all of the views with ``@login_required``, and it can be easy to forget to decorate some of them.
 
-So, you can use **Django Global Login Required Middleware** to make all page login required excep some of them.
+So, you can use **Django Global Login Required Middleware** to make all page login required except some of them.
+
+.. note::
+   **Django 5.1+ Alternative:** Starting with Django 5.1, you can use the built-in ``LoginRequiredMiddleware`` 
+   which provides similar functionality. See the `Django documentation 
+   <https://docs.djangoproject.com/en/5.1/ref/middleware/#django.contrib.auth.middleware.LoginRequiredMiddleware>`_ 
+   for more details.
 
 .. toctree::
    :maxdepth: 2
